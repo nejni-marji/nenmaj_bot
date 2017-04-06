@@ -95,11 +95,6 @@ def text_parse(bot, update):
 	def bot_responses():
 		# This is a goddammed massterpiece. Don't ever change, nenmaj.
 		if True: # general commands
-			#bot_resp(
-				#'ne[jĵ](ni)?',
-				#'no u',
-				#chance = 25,
-			#)
 			bot_resp(
 				"#poste",
 				"mdr, ĉu vere?",
