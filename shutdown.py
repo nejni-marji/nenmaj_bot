@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-text = 'rebooting'
+text = 'shutting down'
 num = len(text)
 
 resp = []
