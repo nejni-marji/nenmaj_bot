@@ -36,34 +36,19 @@ except:
 	pass
 
 # utils
-import info
-info.main(dp)
-log_time('info')
-import reply
-reply.main(dp)
-log_time('reply')
-import status
-status.main(dp)
-log_time('status')
-
-# generic
-import commands
-commands.main(dp)
-log_time('commands')
-import text_parse
-text_parse.main(dp)
-log_time('text_parse')
-import inline
-inline.main(dp)
-log_time('inline')
-import sock
-sock.main(dp)
-log_time('sock')
-
-# misc
-import youtube
-youtube.main(dp)
-log_time('youtube')
+for i in [
+	'info',
+	'reply',
+	'status',
+	'commands',
+	'text_parse',
+	'inline',
+	'sock',
+	'youtube',
+]:
+	exec('import %s' % i)
+	exec('%s.main(dp)' % i)
+	exec('log_time(\'%s\')' % i)
 
 print('Successful start!')
 
