@@ -26,11 +26,10 @@ dp = updater.dispatcher
 dp.add_error_handler(error)
 
 try:
-	data = [str(argv[1]), str(argv[2])]
+	data = str(argv[1])
 	updater.bot.send_message(
-		data[0],
+		data,
 		'Mi revenas~!',
-		#reply_to_message_id = data[1],
 	)
 except:
 	pass

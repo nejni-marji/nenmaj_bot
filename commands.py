@@ -227,27 +227,18 @@ def bot_leave(bot, update):
 def bot_reboot(bot, update):
 	if not update.message.from_user.id == myself:
 		return None
-	#if not '@nenmaj_bot' in update.message.text:
-		#return None
 	msg = bot.send_message(update.message.chat_id,
 		'Reŝargante...',
-		#reply_to_message_id = update.message.message_id,
 	)
 	sleep(1)
-	data = [
-		str(msg.chat_id),
-		str(msg.message_id),
-	]
-	execl(dirname(__file__) + '/reboot.py', '--', *data)
+	data = str(msg.chat_id)
+	execl(dirname(__file__) + '/reboot.py', '--', data)
 
 def bot_shutdown(bot, update):
 	if not update.message.from_user.id == myself:
 		return None
-	#if not '@nenmaj_bot' in update.message.text:
-		#return None
 	bot.send_message(update.message.chat_id,
 		'Fermante...',
-		#reply_to_message_id = update.message.message_id,
 	)
 	sleep(1)
 	execl(dirname(__file__) + '/shutdown.py', '--')
