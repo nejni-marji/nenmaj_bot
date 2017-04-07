@@ -44,8 +44,8 @@ import text_parse
 text_parse.main(dp)
 import inline
 inline.main(dp)
-import convo
-convo.main(dp)
+import sock
+sock.main(dp)
 
 # misc
 import youtube
