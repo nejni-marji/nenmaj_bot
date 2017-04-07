@@ -2,9 +2,15 @@
 import logging
 from os.path import dirname
 from sys import argv
+from time import time
 
 import telegram as tg
 import telegram.ext as tg_ext
+
+start = float(open(dirname(__file__) + '/private/start.txt').read())
+def log_time(text):
+	print('[{:12.6f}] {}'.format(time() - start, text))
+log_time('start')
 
 f = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format = f, level=logging.INFO)
@@ -32,24 +38,32 @@ except:
 # utils
 import info
 info.main(dp)
+log_time('info')
 import reply
 reply.main(dp)
+log_time('reply')
 import status
 status.main(dp)
+log_time('status')
 
 # generic
 import commands
 commands.main(dp)
+log_time('commands')
 import text_parse
 text_parse.main(dp)
+log_time('text_parse')
 import inline
 inline.main(dp)
+log_time('inline')
 import sock
 sock.main(dp)
+log_time('sock')
 
 # misc
 import youtube
 youtube.main(dp)
+log_time('youtube')
 
 print('Successful start!')
 
