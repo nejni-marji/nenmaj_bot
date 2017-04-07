@@ -10,7 +10,7 @@ import telegram.ext as tg_ext
 start = float(open(dirname(__file__) + '/private/start.txt').read())
 def log_time(text):
 	print('[{:12.6f}] {}'.format(time() - start, text))
-log_time('start')
+log_time('imported python libraries')
 
 f = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format = f, level=logging.INFO)
@@ -35,7 +35,8 @@ try:
 except:
 	pass
 
-# utils
+log_time('beginning to import bot modules')
+
 for i in [
 	'info',
 	'reply',
@@ -48,7 +49,7 @@ for i in [
 ]:
 	exec('import %s' % i)
 	exec('%s.main(dp)' % i)
-	exec('log_time(\'%s\')' % i)
+	exec('log_time(\'loaded %s.py\')' % i)
 
 print('Successful start!')
 
