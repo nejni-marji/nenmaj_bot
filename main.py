@@ -50,7 +50,7 @@ for i in [
 	exec('%s.main(dp)' % i)
 	exec('log_time(\'loaded %s.py\')' % i)
 
-print('Successful start!')
+log_time('all modules loaded')
 
 updater.start_polling()
 updater.idle()
