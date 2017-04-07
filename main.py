@@ -25,15 +25,6 @@ updater = tg_ext.Updater((token))
 dp = updater.dispatcher
 dp.add_error_handler(error)
 
-try:
-	data = str(argv[1])
-	updater.bot.send_message(
-		data,
-		'Mi revenas~!',
-	)
-except:
-	pass
-
 log_time('beginning to import bot modules')
 
 for i in [
@@ -52,6 +43,15 @@ for i in [
 	exec('log_time(\'loaded %s.py\')' % i)
 
 log_time('all modules loaded')
+
+try:
+	data = str(argv[1])
+	updater.bot.send_message(
+		data,
+		'Mi revenas~!',
+	)
+except:
+	pass
 
 updater.start_polling()
 updater.idle()
