@@ -44,6 +44,7 @@ for i in [
 	'text_parse',
 	'inline',
 	'sock',
+	'xkcd',
 	'youtube',
 ]:
 	exec('import %s' % i)
