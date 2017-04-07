@@ -22,4 +22,4 @@ def start(path, default):
 		json_file.close()
 		return database
 	else:
-		return default
+		return default()
