@@ -1,4 +1,4 @@
-In order to start the bot, execute main.py.
+In order to start the bot, execute exec.sh.
 You should also create a directory named private that contains a few files:
 
 chats.db
