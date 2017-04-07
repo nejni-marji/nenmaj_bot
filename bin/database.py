@@ -16,10 +16,10 @@ def dump(path, database):
 	return None
 
 def start(path, default):
-	if isfile(path):
+	try:
 		json_file = open(path, 'r')
 		database = json.loads(json_file.read())
 		json_file.close()
 		return database
-	else:
+	except:
 		return default()
