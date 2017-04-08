@@ -3,6 +3,7 @@ from os.path import dirname
 from os import execl
 from time import sleep, time
 from datetime import datetime, timedelta
+from psutil import cpu_percent, virtual_memory
 
 import telegram as tg
 import telegram.ext as tg_ext
@@ -42,6 +43,25 @@ def bot_uptime(bot, update):
 		resp,
 	)
 
+def bot_usage(bot, update):
+	cpu = cpu_percent()
+	ram = virtual_memory().percent
+	resp = [
+		'CPU: %.3f%%' % cpu,
+		'RAM: %.3f%%' % ram,
+	]
+	bot.send_message(update.message.chat_id,
+		'\n'.join(resp),
+		reply_to_message_id = update.message.message_id,
+	)
+
+def bot_ping(bot, update):
+	delta = datetime.now() - update.message.date
+	bot.send_message(update.message.chat_id,
+		str(delta),
+		reply_to_message_id = update.message.message_id,
+	)
+
 def bot_leave(bot, update):
 	if not update.message.from_user.id == myself:
 		return None
@@ -51,4 +71,6 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('reboot', bot_reboot))
 	dp.add_handler(tg_ext.CommandHandler('shutdown', bot_shutdown))
 	dp.add_handler(tg_ext.CommandHandler('uptime', bot_uptime))
+	dp.add_handler(tg_ext.CommandHandler('usage', bot_usage))
+	dp.add_handler(tg_ext.CommandHandler('ping', bot_ping))
 	dp.add_handler(tg_ext.CommandHandler('leave', bot_leave))
