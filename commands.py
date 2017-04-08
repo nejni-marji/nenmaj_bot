@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sqlite3
-from os import execl
 from os.path import dirname
 from time import sleep
 from urllib.request import urlopen
@@ -217,32 +216,6 @@ def echon(bot, update, args, markdown = True):
 def echomn(bot, update, args):
 	echon(bot, update, args)
 
-# power commands
-
-def bot_leave(bot, update):
-	if not update.message.from_user.id == myself:
-		return None
-	bot.leave_chat(update.message.chat_id)
-
-def bot_reboot(bot, update):
-	if not update.message.from_user.id == myself:
-		return None
-	msg = bot.send_message(update.message.chat_id,
-		'Reŝargante...',
-	)
-	sleep(1)
-	data = str(msg.chat_id)
-	execl(dirname(__file__) + '/reboot.py', '--', data)
-
-def bot_shutdown(bot, update):
-	if not update.message.from_user.id == myself:
-		return None
-	bot.send_message(update.message.chat_id,
-		'Fermante...',
-	)
-	sleep(1)
-	execl(dirname(__file__) + '/shutdown.py', '--')
-
 # dumb commands
 
 def hi_c(bot, update):
@@ -267,11 +240,5 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('em', echom, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('en', echon, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('emn', echomn, pass_args = True))
-
-	dp.add_handler(tg_ext.CommandHandler('reboot', bot_reboot))
-	dp.add_handler(tg_ext.CommandHandler('shutdown', bot_shutdown))
-	dp.add_handler(tg_ext.CommandHandler('leave', bot_leave))
-	dp.add_handler(tg_ext.CommandHandler('rbt', bot_reboot))
-	dp.add_handler(tg_ext.CommandHandler('sht', bot_shutdown))
 
 	dp.add_handler(tg_ext.CommandHandler('hic', hi_c))
