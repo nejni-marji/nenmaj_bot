@@ -61,8 +61,9 @@ def text_parse(bot, update):
 		match = re.search(pattern, text, flags = re.I) # arg: pattern
 
 		bot_kwargs['reply_to_message_id'] = update.message.message_id
-		if markdown:
-			bot_kwargs['parse_mode'] = tg.ParseMode.MARKDOWN
+		bot_kwargs['parse_mode'] = tg.ParseMode.MARKDOWN
+		if not markdown:
+			bot_kwargs.pop('parse_mode')
 
 		# set bob
 		if update.message.from_user.id == myself:
