@@ -52,7 +52,3 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('shutdown', bot_shutdown))
 	dp.add_handler(tg_ext.CommandHandler('uptime', bot_uptime))
 	dp.add_handler(tg_ext.CommandHandler('leave', bot_leave))
-	dp.add_handler(tg_ext.CommandHandler('rb', bot_reboot))
-	dp.add_handler(tg_ext.CommandHandler('sd', bot_shutdown))
-	dp.add_handler(tg_ext.CommandHandler('up', bot_uptime))
-	dp.add_handler(tg_ext.CommandHandler('lv', bot_leave))
