@@ -33,7 +33,10 @@ def info_user(bot, update, args):
 	if update.message.reply_to_message:
 		user_id = update.message.reply_to_message.from_user.id
 	else:
-		user_id = args[1]
+		try:
+			user_id = args[1]
+		except:
+			user_id = args[0]
 	member = bot.get_chat_member(
 		chat_id, user_id
 	)
