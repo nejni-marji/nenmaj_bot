@@ -89,9 +89,9 @@ class Comic():
 		print('Done updating database')
 		self.lock = False
 	def num_query(self, num = 'latest'):
-		if num == 'latest':
+		if num in ['latest', 'l']:
 			num = 0
-		if num == 'random':
+		if num in ['random', 'rand', 'r']:
 			rand_list = range(len(self.comic_db))
 			num = rand_list[randint(1, len(rand_list) - 1)]
 		try:
@@ -138,4 +138,6 @@ def xkcd_search(bot, update, args):
 
 def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('xkcd', xkcd_num, pass_args = True))
+	dp.add_handler(tg_ext.CommandHandler('x', xkcd_num, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('search', xkcd_search, pass_args = True))
+	dp.add_handler(tg_ext.CommandHandler('s', xkcd_search, pass_args = True))
