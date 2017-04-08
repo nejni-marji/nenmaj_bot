@@ -84,6 +84,7 @@ def info_message(bot, update, args): # fixed
 	)
 def info_forward(bot, update, args):
 	user = update.message.reply_to_message.forward_from
+	chat_id = update.message.chat_id
 	# make info
 	resp = ''
 	resp += str(user.id)
