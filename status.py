@@ -10,7 +10,9 @@ def status(bot, update):
 	try:
 		if update.message.left_chat_member.id == bot.id:
 			bot.send_message(myself,
-				'I have left a chat:\n{}:\n{}'.format(
+				'{} ({}) has removed me from a chat:\n{}:\n{}'.format(
+					update.message.from_user.first_name,
+					update.message.from_user.id,
 					update.message.chat.title,
 					update.message.chat_id
 				)
