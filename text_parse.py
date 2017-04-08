@@ -143,6 +143,11 @@ def text_parse(bot, update):
 				call = 'photo',
 			)
 			bot_resp(
+				"who y(a|ou?) gonna call",
+				"AgADAwADqacxG3rvQE9sl7ujoxSKl0_4hjEABJZ2Tr5bRwn5M_8AAgI",
+				call = "photo",
+			)
+			bot_resp(
 				"damn?[.,? s[uo]n",
 				"AgADAwADm74xGyR2xAWmtgzaV8M5UsnthjEABEQb0R-YkV5X5ncAAgI",
 				call = 'photo',

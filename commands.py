@@ -243,6 +243,13 @@ def bot_shutdown(bot, update):
 	sleep(1)
 	execl(dirname(__file__) + '/shutdown.py', '--')
 
+# dumb commands
+
+def hi_c(bot, update):
+	bot.send_photo(update.message.chat_id,
+		"AgADBAADEfQ2G_UdZAd8j4h2V8eoRzRUoBkABBr6NkYuexXAhBECAAEC"
+	)
+
 def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('start', start))
 	dp.add_handler(tg_ext.CommandHandler('nenmaj', nenmaj))
@@ -266,3 +273,5 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('leave', bot_leave))
 	dp.add_handler(tg_ext.CommandHandler('rbt', bot_reboot))
 	dp.add_handler(tg_ext.CommandHandler('sht', bot_shutdown))
+
+	dp.add_handler(tg_ext.CommandHandler('hic', hi_c))
