@@ -368,9 +368,8 @@ def text_parse(bot, update):
 			hello_list = ['hi', 'hello', 'hey', 'heyo']
 			hello = hello_list[randint(0, len(hello_list) - 1)].capitalize()
 			bot_resp(
-				'h(i|ello|eyo?),? ((y\')?all|everyone)',
+				'h(i|ello|eyo?),? ((y\'?)?all|everyone|people|ppl)',
 				hello + ', {first_name}!',
-				chance = 5,
 			)
 	def bot_ayylmao():
 		# Don't do anything if @theayybot is present.
