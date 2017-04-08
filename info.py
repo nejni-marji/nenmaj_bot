@@ -93,7 +93,7 @@ def info_forward(bot, update, args):
 	resp += '\nP-nomo: ' + user.first_name
 	if user.last_name:
 		resp += '\nF-nomo: ' + user.last_name
-	if chat_id > 0:
+	if chat_id < 0:
 		resp += '\nStato: %s' % member.status
 	# send info
 	bot.send_message(
