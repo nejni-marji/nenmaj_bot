@@ -93,6 +93,33 @@ def text_parse(bot, update):
 
 		else:
 			return False
+	def bot_special():
+		# I'm moving all the stuff that was in bot_response to here for the time being.
+		hacker_list = [
+			'AgADAwADr6cxG3g0AUwoHebva7LgVtLkhjEABHBt9cFF3a_w9YAAAgI',
+			'AgADAwADsKcxG3g0AUypcvpgwOzxUPpZljEABATMDotf2VIY8zQAAgI',
+			'AgADAwADsacxG3g0AUxAI_atJuFs1XNeljEABAkoj9oSW_fWMzQAAgI',
+			'AgADAwADsqcxG3g0AUx7Yyv0pQnWhnkHhzEABOkUTQABsNf0ylpMAAIC',
+			'AgADAwADs6cxG3g0AUwODkvMlyjxKwblhjEABKUfPy2Eg0zVRHkAAgI',
+			'AgADAwADtKcxG3g0AUzdKpQ7CrMq5J_ihjEABJwt-PN5TxUUR3UAAgI',
+			'AgADAwADtacxG3g0AUyezs82Afs3i_3phjEABCLZZcZcEvp3T3kAAgI',
+			'AgADAwADtqcxG3g0AUyvYVfDUd1-mbsFhzEABBtrwmhgNUqh_UwAAgI',
+			'AgADAwADt6cxG3g0AUzzcit_ZZryBOHqhjEABD8_RvXXQZfFSHUAAgI',
+			'AgADAwADuKcxG3g0AUwFJcO3pDOy3c3phjEABIG7x7ZJzHci_3YAAgI',
+			'AgADAwADuacxG3g0AUzhQwN3RUqIZmpWljEABNLkOs2zLQ_0OTMAAgI',
+		]
+		hacker = hacker_list[randint(0, len(hacker_list) - 1)]
+		bot_resp(
+			'(net)?h[a4](ck|x$|xx+)([o0e3]r)?[sz]*(e3d)?(net)?',
+			hacker,
+			call = 'photo',
+		)
+		if check_at_bot():
+			for i in permutations(['mi', 'amas', 'vin']):
+				bot_resp(
+					' '.join(i),
+					'Kaj ankaŭ {match_lower}, {first_name}!',
+				)
 	def bot_responses():
 		# This is a goddammed massterpiece. Don't ever change, nenmaj.
 		if True: # general commands
@@ -345,33 +372,6 @@ def text_parse(bot, update):
 				hello + ', {first_name}!',
 				chance = 5,
 			)
-	def bot_special():
-		# I'm moving all the stuff that was in bot_response to here for the time being.
-		hacker_list = [
-			'AgADAwADr6cxG3g0AUwoHebva7LgVtLkhjEABHBt9cFF3a_w9YAAAgI',
-			'AgADAwADsKcxG3g0AUypcvpgwOzxUPpZljEABATMDotf2VIY8zQAAgI',
-			'AgADAwADsacxG3g0AUxAI_atJuFs1XNeljEABAkoj9oSW_fWMzQAAgI',
-			'AgADAwADsqcxG3g0AUx7Yyv0pQnWhnkHhzEABOkUTQABsNf0ylpMAAIC',
-			'AgADAwADs6cxG3g0AUwODkvMlyjxKwblhjEABKUfPy2Eg0zVRHkAAgI',
-			'AgADAwADtKcxG3g0AUzdKpQ7CrMq5J_ihjEABJwt-PN5TxUUR3UAAgI',
-			'AgADAwADtacxG3g0AUyezs82Afs3i_3phjEABCLZZcZcEvp3T3kAAgI',
-			'AgADAwADtqcxG3g0AUyvYVfDUd1-mbsFhzEABBtrwmhgNUqh_UwAAgI',
-			'AgADAwADt6cxG3g0AUzzcit_ZZryBOHqhjEABD8_RvXXQZfFSHUAAgI',
-			'AgADAwADuKcxG3g0AUwFJcO3pDOy3c3phjEABIG7x7ZJzHci_3YAAgI',
-			'AgADAwADuacxG3g0AUzhQwN3RUqIZmpWljEABNLkOs2zLQ_0OTMAAgI',
-		]
-		hacker = hacker_list[randint(0, len(hacker_list) - 1)]
-		bot_resp(
-			'(net)?h[a4](ck|x$|xx+)([o0e3]r)?[sz]*(e3d)?(net)?',
-			hacker,
-			call = 'photo',
-		)
-		if check_at_bot():
-			for i in permutations(['mi', 'amas', 'vin']):
-				bot_resp(
-					' '.join(i),
-					'Kaj ankaŭ {match_lower}, {first_name}!',
-				)
 	def bot_ayylmao():
 		# Don't do anything if @theayybot is present.
 		try:
@@ -424,8 +424,8 @@ def text_parse(bot, update):
 				bot.send_message(update.message.chat_id,
 					resp,
 				)
-	bot_responses()
 	bot_special()
+	bot_responses()
 	bot_ayylmao()
 	bot_reverse()
 	bot_motd()
