@@ -216,6 +216,12 @@ def text_parse(bot, update):
 				markdown = True,
 			)
 			bot_resp(
+				'animes?',
+				'*PURGE THE WEEBS!*',
+				chance = 5,
+				markdown = True,
+			)
+			bot_resp(
 				"skype",
 				"http://stallman.org/skype.html",
 			)
