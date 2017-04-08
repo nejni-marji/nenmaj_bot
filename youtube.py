@@ -186,8 +186,18 @@ def youtube_meta(bot, update, args, mode, debug = False):
 		+ 'cross-compiling ffmpeg for the raspi. All of the above sound like '
 		+ 'they take actual effort, save the first one, but I\'m REALLY lazy, '
 		+ 'so... Sorry about that.'
+		+ '\n\n'
+		+ 'I\'ll leave this function in, but if your action fails, chances '
+		+ 'are it\'s due to the fact that avconv lacks the same filter '
+		+ 'commands as ffmpeg.'
+		+ '\n\n'
+		+ 'Lastly, if anybody wants to look into either of the requirements '
+		+ 'for making this work on a raspi, feel free to let me know at by '
+		+ 'typing `/nenmaj <your message>`, or by submitting a pull '
+		+ 'request to github.com/nejni-marji/nenmaj\_bot.',
+		parse_mode = tg.ParseMode.MARKDOWN,
+		disable_web_page_preview = True,
 	)
-	return None #TODO
 	ids = [
 		update.message.from_user.id,
 		update.message.chat_id,
