@@ -139,6 +139,7 @@ def motd(bot, update, args):
 	)
 
 def echo(bot, update, args, i = 1, n = 1, markdown = False):
+	bot_kwargs = {}
 	if markdown:
 		bot_kwargs = {'parse_mode': tg.ParseMode.HTML}
 	try:
