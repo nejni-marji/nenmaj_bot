@@ -351,6 +351,10 @@ def text_parse(bot, update):
 				's+h+|be (quie|silen)t|shut up',
 				'You can\'t tell me to be quiet!',
 			)
+			bot_resp(
+				'rude|rood|r00d|lewd|lood',
+				'I\'m a rude dude, and I\'m rather lewd.',
+			)
 		elif not check_at_bot():
 			sal_list = ['sal', 'saluton', 'resal']
 			sal = sal_list[randint(0, len(sal_list) - 1)].capitalize()
