@@ -33,7 +33,7 @@ def text_parse(bot, update):
 		# I'll mark where the args and kwargs are.
 			pattern,
 			response,
-			chance = 1,
+			chance = 5,
 			call = 'text',
 			words = True,
 			sub = False,
@@ -131,13 +131,11 @@ def text_parse(bot, update):
 			bot_resp(
 				"fuck me",
 				"_Later, okay?_",
-				chance = 5,
 				markdown = 1,
 			)
 			bot_resp(
 				"furz",
 				"CgADAwADAgAD1a5dESoG4V8v7zq2Ag",
-				chance = 5,
 				call = 'document',
 				words = False,
 			)
@@ -150,7 +148,6 @@ def text_parse(bot, update):
 			bot_resp(
 				"spicy memes?",
 				"AgADBAADopI1G2gbZAcZhRV15auVr1VcYRkABPSZqMh9ovzsmbYCAAEC",
-				chance = 5,
 				call = 'photo',
 			)
 			bot_resp(
@@ -187,7 +184,6 @@ def text_parse(bot, update):
 			bot_resp(
 				"sponge ?bob|square ?pants",
 				"I think the funny part was\nWith SpongeBob was just sigen\nOUT of nowhere\nAnd squeaked word was like\ncan't BELIEVE IT",
-				chance = 5,
 			)
 			bot_resp(
 				"fuck th[ea] police",
@@ -197,7 +193,6 @@ def text_parse(bot, update):
 			bot_resp(
 				"#1\b|\bwe are (number (one|#?1)|#1)\b",
 				"https://youtu.be/PfYnvDL0Qcw",
-				chance = 5,
 				words = False,
 			)
 			bot_resp(
@@ -239,13 +234,11 @@ def text_parse(bot, update):
 			bot_resp(
 				"ready",
 				"_Mom's spaghetti~_",
-				chance = 5,
 				markdown = True,
 			)
 			bot_resp(
 				'animes?',
 				'*PURGE THE WEEBS!*',
-				chance = 5,
 				markdown = True,
 			)
 			bot_resp(
@@ -255,35 +248,29 @@ def text_parse(bot, update):
 			bot_resp(
 				"^technically",
 				"https://www.xkcd.com/1475/",
-				chance = 1,
 				words = False,
 			)
 			bot_resp(
 				"wat",
 				"AgADBAADYiY1G0UZZAdC3oqoZ4hwJhFXYRkABEJYCrUC4vLTNvABAAEC",
-				chance = 5,
 				call = 'photo',
 			)
 			bot_resp(
 				"hot sec",
 				"hot sex",
-				chance = 5,
 				sub = True,
 			)
 			bot_resp(
 				"aesthetic",
 				"ａｅｓｔｈｅｔｉｃ",
-				chance = 5,
 			)
 			bot_resp(
 				"fek al mi",
 				"Ja, fek al vi!",
-				chance = 5,
 			)
 			bot_resp(
 				"id(ist)?(oj?|s)?",
 				"Fekacho a vu!",
-				chance = 5,
 			)
 			bot_resp(
 				"a?(l[eou]l|kek)[sz]?",
@@ -361,12 +348,10 @@ def text_parse(bot, update):
 			bot_resp(
 				'sal(uton)?( al|,?) (vi )?(c[hx]|ĉ)iuj?( vi)?',
 				sal + ', {first_name}!',
-				chance = 5,
 			)
 			bot_resp(
 				'fek al vi',
 				'fek a vu',
-				chance = 5,
 				sub = True,
 			)
 			hello_list = ['hi', 'hello', 'hey', 'heyo']
