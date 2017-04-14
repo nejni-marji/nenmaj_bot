@@ -65,12 +65,5 @@ def reply_check(bot, update):
 		message_id = msg.message_id
 	)
 
-	# bot response to alerted message
-	if randint(1, 5) == 1:
-		bot.send_message(update.message.chat_id,
-			'no u',
-			reply_to_message_id = update.message.message_id
-		)
-
 def main(dp):
 	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.all, reply_check), group = 1)
