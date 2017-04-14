@@ -110,7 +110,7 @@ def text_parse(bot, update):
 		]
 		hacker = hacker_list[randint(0, len(hacker_list) - 1)]
 		bot_resp(
-			'(net)?h[a4](ck|x$|xx+)([o0e3]r)?[sz]*(e3d)?(net)?',
+			'h[a4](ck|x$|xx+)([o0e3]r)?[sz]*(e3d)?',
 			hacker,
 			call = 'photo',
 		)
