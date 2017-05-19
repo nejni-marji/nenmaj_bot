@@ -56,13 +56,6 @@ class Comic():
 		if locked:
 			print('Database unlocked.')
 		return None
-	def pprint(self, data):
-		for i in data:
-			print('{}:\n{}\n'.format(i, data[i]))
-		return None
-	def pprint2(self, data_list):
-		for i in data_list:
-			print('{}: {}'.format(i['num'], i['title']))
 	def init_db(self):
 		comic_db = [self.get_json_unsafe()] #debug
 		latest = comic_db[0]['num']
