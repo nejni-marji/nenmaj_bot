@@ -272,20 +272,6 @@ def text_parse(bot, update):
 				"id(ist)?(oj?|s)?",
 				"Fekacho a vu!",
 			)
-			bot_resp(
-				"a?(l[eou]l|kek)[sz]?",
-				"[IF YOU LIKE TO {match_upper}, CHECK OUT JAKE H ON YOUTUBE!](https://www.youtube.com/channel/UCgYTmlAedgFze6SGGGvXG2A)",
-				chance = 25,
-				markdown = True,
-				bot_kwargs = {'disable_web_page_preview': 1},
-			)
-			bot_resp(
-				"mdr",
-				"[SE VI ŜATAS MDR-I, RIGARDU JE JAKE H ĈE JUTUBO!](https://www.youtube.com/channel/UCgYTmlAedgFze6SGGGvXG2A)",
-				chance = 25,
-				markdown = True,
-				bot_kwargs = {'disable_web_page_preview': 1},
-			)
 		if check_at_bot():
 			bot_resp(
 				'saluton',
