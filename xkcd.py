@@ -13,7 +13,6 @@ from bin.background import background
 
 class Comic():
 	def __init__(self):
-		self.lock = True
 		self.get_db()
 	def get_json_unsafe(self, num = ''):
 		if not isinstance(num, int):
@@ -47,15 +46,6 @@ class Comic():
 		data = data.decode()
 		data = loads(data)
 		return data
-	def wait_lock(self): # unused?
-		locked = self.lock
-		if locked:
-			print('Waiting for lock.')
-		while self.lock:
-			sleep(1)
-		if locked:
-			print('Database unlocked.')
-		return None
 	def init_db(self):
 		comic_db = [self.get_json_unsafe()] #debug
 		latest = comic_db[0]['num']
@@ -80,7 +70,6 @@ class Comic():
 			self.comic_db.append(self.comic_db[0])
 		db.dump('private/comic.json', self.comic_db)
 		print('Done updating database')
-		self.lock = False
 	def num_query(self, num = 'latest'):
 		if num in ['latest', 'l']:
 			num = 0
