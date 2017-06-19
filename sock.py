@@ -33,13 +33,6 @@ def sock(bot, update, args, user_data):
 	)
 	return SOCK
 
-def send(bot, update, args, user_data):
-	bot.send_message(user_data['target'],
-		' '.join(args),
-		parse_mode = tg.ParseMode.HTML,
-	)
-	return SOCK
-
 def send_text(bot, update, user_data):
 	bot.send_message(user_data['target'],
 		update.message.text,
@@ -54,8 +47,6 @@ conv_handler = tg_ext.ConversationHandler(
 	states = {
 		SOCK: [
 			tg_ext.CommandHandler('sock', sock, pass_args = True, pass_user_data = True),
-			tg_ext.CommandHandler('send', send, pass_args = True, pass_user_data = True),
-			tg_ext.CommandHandler('s', send, pass_args = True, pass_user_data = True),
 			tg_ext.MessageHandler(tg_ext.Filters.text, send_text, pass_user_data = True)
 		],
 	},
