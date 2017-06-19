@@ -39,6 +39,11 @@ def send_text(bot, update, user_data):
 		parse_mode = tg.ParseMode.HTML,
 	)
 
+def send_photo(bot, update, user_data):
+	bot.send_photo(user_data['target'],
+		update.message.photo[0].file_id,
+	)
+
 conv_handler = tg_ext.ConversationHandler(
 	entry_points = [
 		tg_ext.CommandHandler('sock', sock, pass_args = True, pass_user_data = True),
@@ -47,7 +52,8 @@ conv_handler = tg_ext.ConversationHandler(
 	states = {
 		SOCK: [
 			tg_ext.CommandHandler('sock', sock, pass_args = True, pass_user_data = True),
-			tg_ext.MessageHandler(tg_ext.Filters.text, send_text, pass_user_data = True)
+			tg_ext.MessageHandler(tg_ext.Filters.text, send_text, pass_user_data = True),
+			tg_ext.MessageHandler(tg_ext.Filters.photo, send_photo, pass_user_data = True),
 		],
 	},
 
