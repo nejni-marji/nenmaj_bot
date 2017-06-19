@@ -296,7 +296,7 @@ def text_parse(bot, update):
 			)
 			bot_resp(
 				'fek al (vi|nenmaj)|(vi|nenmaj) (estas stulta|stultas)',
-				'Bonvole pardonu min, mi estas nur roboto!',
+				'Bonvole pardonu min, mi estas nur homo!',
 			)
 			bot_resp(
 				'ŝ+|(kviet|silent|ferm)iĝu',
