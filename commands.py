@@ -4,6 +4,7 @@ from os.path import dirname
 from time import sleep
 from urllib.request import urlopen
 from json import loads
+from re import match
 
 import telegram as tg
 import telegram.ext as tg_ext
@@ -97,6 +98,16 @@ def btc(bot, update):
 		'\n'.join(resp),
 		reply_to_message_id = update.message.message_id,
 	)
+
+def calc(bot, update, args):
+	if not sudo(bot, update, 'quiet'):
+		sudo(bot, update, 'test')
+		return None
+	if match('^[0-9.()*/+-]+$', ' '.join(args)):
+		resp = eval(' '.join(args))
+		bot.send_message(update.message.chat_id,
+			resp,
+		)
 
 def motd(bot, update, args):
 	#TODO make this function prettier
@@ -231,6 +242,7 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('donate', donate))
 	dp.add_handler(tg_ext.CommandHandler('sudo', sudo, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('btc', btc))
+	dp.add_handler(tg_ext.CommandHandler('calc', calc, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('motd', motd, pass_args = True))
 
 	dp.add_handler(tg_ext.CommandHandler('echo', echo, pass_args = True))
