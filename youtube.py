@@ -16,10 +16,11 @@ myself = int(open(dirname(__file__) + '/private/myself').read())
 yt_dir = dirname(__file__) + '/private/youtube/'
 
 class YouTube():
-	def __init__(self, bot, ids, args, mode, debug = False):
+	def __init__(self, bot, ids, first_name, args, mode, debug = False):
 		# head
 		self.bot = bot
 		self.user_id, self.chat_id, self.message_id = ids
+		self.first_name = first_name
 		self.mode = mode
 		self.debug = debug
 		if self.get_video_id(args) == False:
@@ -71,7 +72,8 @@ class YouTube():
 		self.bot.send_message(myself, '\n'.join([
 			'#ALERT',
 			'#{}'.format(self.mode.upper()),
-			'*{} is trying to use your bot to {} a video!*'.format(
+			'*{} ({}) is trying to use your bot to {} a video!*'.format(
+				self.first_name,
 				self.user_id,
 				{
 					'audio': 'download the audio from',
@@ -184,7 +186,8 @@ def youtube_meta(bot, update, args, mode, debug = False):
 		update.message.chat_id,
 		update.message.message_id,
 	]
-	YouTube(bot, ids, args, mode, debug = debug)
+	first_name = update.message.from_user.first_name
+	YouTube(bot, ids, first_name, args, mode, debug = debug)
 
 def youtube_audio(bot, update, args):
 	youtube_meta(bot, update, args, 'audio')
