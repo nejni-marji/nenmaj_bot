@@ -142,14 +142,14 @@ class YouTube():
 
 	def get_mp3(self, ext):
 		self.send_info('Converting to mp3', [self.file_name])
-		run  = 'avconv -i {}.m4a '.format(yt_dir + self.file_name)
+		run  = 'ffmpeg -i {}.m4a '.format(yt_dir + self.file_name)
 		run += '-n -loglevel error '
 		run += '{}{}'.format(yt_dir + self.file_name, ext)
 		call(run, shell = True)
 
 	def get_nightcore(self, ext):
 		self.send_info('Nightcoring', [self.file_name])
-		run  = 'avconv -i {}.m4a '.format(yt_dir + self.file_name)
+		run  = 'ffmpeg -i {}.m4a '.format(yt_dir + self.file_name)
 		run += '-n -loglevel error '
 		run += '-af "asetrate=44100*1.15,atempo=1.05" '
 		run += '{}{}'.format(yt_dir + self.file_name, ext)
@@ -157,7 +157,7 @@ class YouTube():
 
 	def get_daycore(self, ext):
 		self.send_info('Daycoring', [self.file_name])
-		run  = 'avconv -i {}.m4a '.format(yt_dir + self.file_name)
+		run  = 'ffmpeg -i {}.m4a '.format(yt_dir + self.file_name)
 		run += '-n -loglevel error '
 		run += '-af "asetrate=44100*0.85,atempo=0.95" '
 		run += '{}{}'.format(yt_dir + self.file_name, ext)
@@ -179,25 +179,6 @@ class YouTube():
 
 @background
 def youtube_meta(bot, update, args, mode, debug = False):
-	bot.send_message(update.message.chat_id,
-		'In order to fix this function, I have to port it from ffmpeg to '
-		+ 'avconv, which requires finally figuring out how to use ANY of '
-		+ 'ffmpeg\'s filters in avconv, OR compiling ffmpeg on the raspi OR '
-		+ 'cross-compiling ffmpeg for the raspi. All of the above sound like '
-		+ 'they take actual effort, save the first one, but I\'m REALLY lazy, '
-		+ 'so... Sorry about that.'
-		+ '\n\n'
-		+ 'I\'ll leave this function in, but if your action fails, chances '
-		+ 'are it\'s due to the fact that avconv lacks the same filter '
-		+ 'commands as ffmpeg.'
-		+ '\n\n'
-		+ 'Lastly, if anybody wants to look into either of the requirements '
-		+ 'for making this work on a raspi, feel free to let me know at by '
-		+ 'typing `/nenmaj <your message>`, or by submitting a pull '
-		+ 'request to github.com/nejni-marji/nenmaj\_bot.',
-		parse_mode = tg.ParseMode.MARKDOWN,
-		disable_web_page_preview = True,
-	)
 	ids = [
 		update.message.from_user.id,
 		update.message.chat_id,
