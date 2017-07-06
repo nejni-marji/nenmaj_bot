@@ -9,13 +9,17 @@ myself = int(open(dirname(__file__) + '/private/myself').read())
 
 def reply_check(bot, update):
 	msg = update.message
+	# don't notify about me or my bot
 	if msg.from_user.id in (myself, bot.id):
 		return None
+	# check if there is a reply to me or my bot
 	try:
 		reply = (msg.reply_to_message.from_user.id in (myself, bot.id))
 	except AttributeError:
 		reply = False
+	# list of my names
 	alert_list = ['nejni', 'marji', 'nenmaj', 'neĵni', 'neĵ']
+	# check if I am named
 	try:
 		alert = (True in (i in msg.text.lower() for i in alert_list))
 	except AttributeError:
