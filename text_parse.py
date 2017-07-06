@@ -372,7 +372,7 @@ def text_parse(bot, update):
 			)
 	def bot_reverse():
 		# This should be rare. Feel free to change based on chat activity.
-		if randint(1, 100) == 1 and not ' ' in text:
+		if randint(1, 100) == 1 and re.search('^[a-z]+$', text):
 			txet = list(text)
 			txet.reverse()
 			txet = ''.join(txet)
