@@ -16,7 +16,10 @@ def reply_check(bot, update):
 	except AttributeError:
 		reply = False
 	alert_list = ['nejni', 'marji', 'nenmaj', 'neĵni', 'neĵ']
-	alert = (True in (i in msg.text.lower() for i in alert_list))
+	try:
+		alert = (True in (i in msg.text.lower() for i in alert_list))
+	except AttributeError:
+		alert = False
 	# kill undesireables
 	if not reply and not alert: return None
 
