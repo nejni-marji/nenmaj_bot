@@ -318,7 +318,7 @@ def text_parse(bot, update):
 			bot_resp(
 				'fuc?k (off|(yo)?u)|i hate (yo)?u|sod off|'
 				+ 'you(\'?re? (dumb?|stupid)| suck)',
-				'Please forgive me, I\'m only a bot!',
+				'Please forgive me, I\'m only human!',
 			)
 			bot_resp(
 				's+h+|be (quie|silen)t|shut up',
