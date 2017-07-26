@@ -269,7 +269,7 @@ def text_parse(bot, update):
 				"Ja, fek al vi!",
 			)
 			bot_resp(
-				"id(ist)?(oj?|s)?",
+				"id((ists?)?(?<!s)oj?)?)",
 				"Fekacho a vu!",
 			)
 		if check_at_bot():
