@@ -235,6 +235,11 @@ def hi_c(bot, update):
 		"AgADBAADEfQ2G_UdZAd8j4h2V8eoRzRUoBkABBr6NkYuexXAhBECAAEC"
 	)
 
+def foss(bot, update):
+	bot.send_photo(update.message.chat_id,
+		"AgADAwADrKcxGxf4GExRki2M2qyrKI30hjEABLCGgdjm9eXSgEYBAAEC"
+	)
+
 def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('start', start))
 	dp.add_handler(tg_ext.CommandHandler('nenmaj', nenmaj))
@@ -255,3 +260,4 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('emn', echomn, pass_args = True))
 
 	dp.add_handler(tg_ext.CommandHandler('hic', hi_c))
+	dp.add_handler(tg_ext.CommandHandler('foss', foss))
