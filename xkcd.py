@@ -31,7 +31,7 @@ class Comic():
 				'title': '404',
 				'day': '404',
 			}
-		site= "https://xkcd.com/{}/info.0.json"
+		site = "https://xkcd.com/{}/info.0.json"
 		print('Getting ' + site.format(num)) #debug
 		# this is how many times the dl can fail before we quit
 		count = 3
