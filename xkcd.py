@@ -32,7 +32,6 @@ class Comic():
 				'day': '404',
 			}
 		site = "https://xkcd.com/{}/info.0.json"
-		print('Getting ' + site.format(num)) #debug
 		# this is how many times the dl can fail before we quit
 		count = 3
 		while count:
@@ -52,7 +51,6 @@ class Comic():
 		for i in range(1, latest):
 			comic_db.append(self.get_json_unsafe(i))
 		comic_db.append(comic_db[0])
-		print('Done initializing database')
 		return comic_db
 	@background
 	def get_db(self):
@@ -61,15 +59,11 @@ class Comic():
 		self.comic_db[0] = self.get_json_unsafe()
 		true_latest = self.comic_db[0]['num']
 		dled_latest = len(self.comic_db) - 1
-		print('true_latest: ' + str(true_latest))
-		print('dled_latest: ' + str(dled_latest))
 		if not true_latest == dled_latest:
-			print('Updating database')
 			for i in range(dled_latest + 1, true_latest):
 				self.comic_db.append(self.get_json_unsafe(i))
 			self.comic_db.append(self.comic_db[0])
 		db.dump('private/comic.json', self.comic_db)
-		print('Done updating database')
 	def num_query(self, num = 'latest'):
 		if num in ['latest', 'l']:
 			num = 0
