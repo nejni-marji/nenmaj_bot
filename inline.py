@@ -33,6 +33,18 @@ def subs_ls(bot, update):
 		disable_web_page_preview = True
 	)
 
+strike = re.compile('<s>(.(?!</s>))+.</s>')
+def strike_text(text):
+	match = strike.search(text)
+	while match:
+		text = text.replace(
+			match.group(),
+			'\u0336'.join(list(match.group()[3:-4])) + '\u0336',
+			1
+		)
+		match = strike.search(text)
+	return text
+
 @background
 def inlinequery(bot, update):
 	inline_query = update.inline_query
@@ -65,13 +77,14 @@ def inlinequery(bot, update):
 			))
 
 	def strikethrough():
-		text = '\u0336'.join(list(query)) + '\u0336'
+		text = strike_text(query)
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id = uuid4(),
 			title = 'Strikethrough',
 			description = desc,
 			input_message_content = tg.InputTextMessageContent(
-				text
+				text,
+				parse_mode = tg.ParseMode.MARKDOWN
 			)
 		))
 
