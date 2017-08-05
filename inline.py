@@ -117,11 +117,12 @@ def inlinequery(bot, update):
 			)
 		))
 
-	subs()
-	strikethrough()
-	vaporwave()
-	markdown_noprev()
-	markdown_prev()
+	if query:
+		subs()
+		strikethrough()
+		vaporwave()
+		markdown_noprev()
+		markdown_prev()
 
 	# send inline query results
 	bot.answer_inline_query(update.inline_query.id, results, cache_time = 0)
