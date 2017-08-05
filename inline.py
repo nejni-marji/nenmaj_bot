@@ -69,7 +69,6 @@ def inlinequery(bot, update):
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id = uuid4(),
 			title = 'Strikethrough',
-			# desc is all instances that were substituted
 			description = desc,
 			input_message_content = tg.InputTextMessageContent(
 				text
