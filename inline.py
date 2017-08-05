@@ -53,7 +53,8 @@ def inlinequery(bot, update):
 				description = desc,
 				input_message_content = tg.InputTextMessageContent(
 					text
-				)))
+				)
+			))
 		else:
 			results.append(tg.InlineQueryResultArticle(id = uuid4(),
 				title = '/subs',
@@ -61,7 +62,8 @@ def inlinequery(bot, update):
 				description = 'Gives a list of substitutions.',
 				input_message_content = tg.InputTextMessageContent(
 					'/subs'
-				)))
+				)
+			))
 
 	if query:
 		# Strike!
@@ -73,7 +75,8 @@ def inlinequery(bot, update):
 			description = desc,
 			input_message_content = tg.InputTextMessageContent(
 				text
-			)))
+			)
+		))
 
 	if query:
 		# Vaporwave
@@ -88,7 +91,8 @@ def inlinequery(bot, update):
 			description = desc,
 			input_message_content = tg.InputTextMessageContent(
 				text
-			)))
+			)
+		))
 
 	if query:
 		# Markdown (No Preview)
