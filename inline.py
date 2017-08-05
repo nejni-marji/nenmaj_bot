@@ -39,8 +39,7 @@ def inlinequery(bot, update):
 	query = update.inline_query.query
 	results = list()
 
-	if query:
-		# xxSubs
+	def subs():
 		subs_used = sub_all.findall(query) # list of subs used in query
 		text = query
 		desc = ', '.join(subs_used)
@@ -65,8 +64,7 @@ def inlinequery(bot, update):
 				)
 			))
 
-	if query:
-		# Strike!
+	def strikethrough():
 		text = '\u0336'.join(list(query)) + '\u0336'
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id = uuid4(),
@@ -78,8 +76,7 @@ def inlinequery(bot, update):
 			)
 		))
 
-	if query:
-		# Vaporwave
+	def vaporwave():
 		text = ''
 		for i in list(''.join(query.split())):
 			text += chr(0xFEE0 + ord(i))
@@ -94,8 +91,7 @@ def inlinequery(bot, update):
 			)
 		))
 
-	if query:
-		# Markdown (No Preview)
+	def markdown_noprev():
 		text = query
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id=uuid4(),
@@ -108,8 +104,7 @@ def inlinequery(bot, update):
 			)
 		))
 
-	if query:
-		# Markdown (Preview)
+	def markdown_prev():
 		text = query
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id=uuid4(),
@@ -121,6 +116,12 @@ def inlinequery(bot, update):
 				disable_web_page_preview = False
 			)
 		))
+
+	subs()
+	strikethrough()
+	vaporwave()
+	markdown_noprev()
+	markdown_prev()
 
 	# send inline query results
 	bot.answer_inline_query(update.inline_query.id, results, cache_time = 0)
