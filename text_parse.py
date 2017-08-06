@@ -16,6 +16,7 @@ myself = int(open(dirname(__file__) + '/private/myself').read())
 def text_parse(bot, update):
 	text = update.message.text
 	user = update.message.from_user
+
 	def check_at_bot():
 		# This code was moved from bot_personal()
 		bot_named = re.search('nenmaj|sampre', text.lower())
@@ -29,6 +30,7 @@ def text_parse(bot, update):
 		master = (at_bot or my_bot) and user.id == myself
 		# check variables
 		return at_bot or master
+
 	def bot_resp(
 		# I'll mark where the args and kwargs are.
 			pattern,
@@ -93,6 +95,7 @@ def text_parse(bot, update):
 
 		else:
 			return False
+
 	def bot_special():
 		# I'm moving all the stuff that was in bot_response to here for the time being.
 		hacker_list = [
@@ -120,6 +123,7 @@ def text_parse(bot, update):
 					' '.join(i),
 					'Kaj ankaŭ {match_lower}, {first_name}!',
 				)
+
 	def bot_responses():
 		# This is a goddammed massterpiece. Don't ever change, nenmaj.
 		if True: # general commands
@@ -346,6 +350,7 @@ def text_parse(bot, update):
 				'h(i|ello|eyo?),? ((y\'?)?all|everyone|people|ppl)',
 				hello + ', {first_name}!',
 			)
+
 	def bot_ayylmao():
 		# Don't do anything if @theayybot is present.
 		try:
@@ -370,6 +375,7 @@ def text_parse(bot, update):
 			bot.send_message(update.message.chat_id,
 				resp,
 			)
+
 	def bot_reverse():
 		# This should be rare. Feel free to change based on chat activity.
 		if randint(1, 100) == 1 and re.search('^[a-z]+$', text):
@@ -380,6 +386,7 @@ def text_parse(bot, update):
 				txet,
 				reply_to_message_id = update.message.message_id,
 			)
+
 	def bot_motd():
 		# Here there be dragons. Those dragons be SQL statements.
 		if update.message.message_id % 500 == 0:
@@ -398,6 +405,7 @@ def text_parse(bot, update):
 				bot.send_message(update.message.chat_id,
 					resp,
 				)
+
 	bot_special()
 	bot_responses()
 	bot_ayylmao()
