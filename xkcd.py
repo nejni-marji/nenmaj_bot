@@ -80,10 +80,25 @@ class Comic():
 comic = Comic()
 
 def xkcd_num(bot, update, args):
-	try:
-		result = comic.num_query(args[0])
-	except:
-		result = comic.num_query('latest')
+	if not args:
+		args = ['help']
+	if args[0] == 'help':
+		resp = '\n'.join([
+			'`/xkcd <number>`',
+			'`/search <query>`'
+		])
+		bot.send_message(
+			update.message.chat_id,
+			resp,
+			parse_mode = tg.ParseMode.MARKDOWN
+		)
+		return None
+	if args[0] == 'update':
+		resp = 'Updating database...'
+		bot.send_message(update.message.chat_id, resp)
+		comic.get_db()
+		return None
+	result = comic.num_query(args[0])
 	bot.send_photo(update.message.chat_id,
 		result['img'],
 		caption = '{}: {}: {}'.format(*(result[i] for i in ['num', 'title', 'alt'])),
@@ -91,6 +106,10 @@ def xkcd_num(bot, update, args):
 	)
 def xkcd_search(bot, update, args):
 	if not args:
+		args = ['help']
+	if args[0] == 'help':
+		resp = 'Simple xkcd text search for titles, transcriptions, and alt-texts.'
+		bot.send_message(update.message.chat_id, resp)
 		return None
 	query = ' '.join(args)
 	result = []
