@@ -42,17 +42,7 @@ def sudo(bot, update, args):
 	).status
 	creator = status == 'creator'
 	admin = status == 'administrator'
-	b_list = []
-	w_list = [myself, 96761380]
-	blacklist = update.message.from_user.id in b_list
-	whitelist = update.message.from_user.id in w_list
-	if blacklist:
-		bot.send_message(update.message.chat_id,
-			'You are blacklisted from sudo permissions with me.',
-			reply_to_message_id = update.message.message_id,
-		)
-		permit = False
-	elif True in (private, creator, admin, whitelist):
+	if True in (private, creator, admin):
 		permit = True
 	else:
 		permit = False
