@@ -57,19 +57,7 @@ def sudo(bot, update, args):
 	else:
 		permit = False
 	if not 'quiet' in args:
-		if blacklist:
-			bot.send_message(update.message.chat_id,
-				'You are blacklisted from sudo permissions with me.',
-				reply_to_message_id = update.message.message_id,
-			)
-		resp = '\n'.join([
-			'Private: {}'.format(private),
-			'Master: {}'.format(master),
-			'Creator: {}'.format(creator),
-			'Admin: {}'.format(admin),
-			'Whitelist: {}'.format(whitelist),
-			'Sudo Access: {}'.format(str(permit).upper()),
-		])
+		resp = 'Sudo Access: {}'.format(str(permit))
 		bot.send_message(update.message.chat_id,
 			resp,
 			reply_to_message_id = update.message.message_id,
