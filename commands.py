@@ -42,7 +42,7 @@ def sudo(bot, update, args):
 	).status
 	creator = status == 'creator'
 	admin = status == 'administrator'
-	if True in (private, creator, admin):
+	if True in (master, private, creator, admin):
 		permit = True
 	else:
 		permit = False
