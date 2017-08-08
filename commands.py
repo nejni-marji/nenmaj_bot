@@ -5,6 +5,8 @@ from time import sleep
 from urllib.request import urlopen
 from json import loads
 from re import match
+from datetime import datetime
+from pytz import timezone
 
 import telegram as tg
 import telegram.ext as tg_ext
@@ -76,6 +78,25 @@ def btc(bot, update):
 		'\n'.join(resp),
 		reply_to_message_id = update.message.message_id,
 	)
+
+def timezones(bot, update):
+	resp = []
+	time_file = open(dirname(__file__) + '/private/time.json')
+	time_dict = loads(time_file.read())
+	time_file.close()
+	if str(update.message.chat_id) in time_dict:
+		for i in time_dict[str(update.message.chat_id)]:
+			time = datetime.now(tz = timezone(i[0]))
+			zone = '<code>{}:</code> {}'.format(
+				time.strftime('%H:%M (%Z)'),
+				i[1]
+			)
+			resp.append(zone)
+		bot.send_message(
+			update.message.chat_id,
+			'\n'.join(resp),
+			parse_mode = tg.ParseMode.HTML
+		)
 
 def calc(bot, update, args):
 	if not sudo(bot, update, 'quiet'):
@@ -225,6 +246,7 @@ def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('donate', donate))
 	dp.add_handler(tg_ext.CommandHandler('sudo', sudo, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('btc', btc))
+	dp.add_handler(tg_ext.CommandHandler('time', timezones))
 	dp.add_handler(tg_ext.CommandHandler('calc', calc, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('motd', motd, pass_args = True))
 
