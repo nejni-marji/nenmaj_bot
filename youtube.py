@@ -10,7 +10,6 @@ import telegram.ext as tg_ext
 import youtube_dl
 
 from bin.background import background
-import bin.database as db
 
 myself = int(open(dirname(__file__) + '/private/myself').read())
 yt_dir = dirname(__file__) + '/private/youtube/'
