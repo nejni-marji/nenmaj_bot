@@ -38,6 +38,7 @@ for i in [
 	'sock',
 	'xkcd',
 	'youtube',
+	'vlaste',
 ]:
 	exec('import %s' % i)
 	exec('%s.main(dp)' % i)
