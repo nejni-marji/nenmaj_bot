@@ -39,6 +39,7 @@ for i in [
 	'sock',
 	'xkcd',
 	'youtube',
+	'questions',
 ]:
 	exec('import %s' % i)
 	exec('%s.main(dp)' % i)
