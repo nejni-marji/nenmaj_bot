@@ -9,6 +9,7 @@ import telegram as tg
 import telegram.ext as tg_ext
 
 from bin.background import background
+from bin.config import check_conf
 
 myself = int(open(dirname(__file__) + '/private/myself').read())
 
@@ -406,11 +407,12 @@ def text_parse(bot, update):
 					resp,
 				)
 
-	bot_special()
-	bot_responses()
-	bot_ayylmao()
-	bot_reverse()
-	bot_motd()
+	if check_conf(str(update.message.chat_id) + '.text_parse.enabled', bool, True):
+		bot_special()
+		bot_responses()
+		bot_ayylmao()
+		bot_reverse()
+		bot_motd()
 
 def main(dp):
 	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.text, text_parse))
