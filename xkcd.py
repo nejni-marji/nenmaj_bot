@@ -133,6 +133,4 @@ def xkcd_search(bot, update, args):
 
 def main(dp):
 	dp.add_handler(tg_ext.CommandHandler('xkcd', xkcd_num, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('x', xkcd_num, pass_args = True))
 	dp.add_handler(tg_ext.CommandHandler('search', xkcd_search, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('s', xkcd_search, pass_args = True))
