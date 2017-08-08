@@ -84,6 +84,7 @@ def pre_parser(bot, update, args, mode):
 	key = args.key.split('.')
 	if args.user and not key[0] == 'user':
 		key = ['user'] + key
+		dotkey = 'user.' + dotkey
 	if not args.absolute:
 		subs = {
 			'user': str(update.message.from_user.id),
