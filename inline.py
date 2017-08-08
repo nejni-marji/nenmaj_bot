@@ -165,9 +165,8 @@ def inlinequery(bot, update):
 
 	def vaporwave():
 		text = ''
-		for i in list(''.join(query.split())):
+		for i in list(query):
 			text += chr(0xFEE0 + ord(i))
-		#text = ' '.join(list(query))
 		desc = text
 		results.append(tg.InlineQueryResultArticle(id = uuid4(),
 			# seriously, if this is overused, it should be removed # IGNORE THIS LINE
