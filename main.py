@@ -29,6 +29,7 @@ log_time('beginning to import bot modules')
 
 for i in [
 	'info',
+	'settings',
 	'creator',
 	'reply',
 	'status',
