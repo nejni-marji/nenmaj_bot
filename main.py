@@ -43,7 +43,7 @@ for i in [
 ]:
 	exec('import %s' % i)
 	exec('%s.main(dp)' % i)
-	exec('log_time(\'loaded %s.py\')' % i)
+	log_time('loaded %s.py' % i)
 
 log_time('all modules loaded')
 
