@@ -71,6 +71,8 @@ def check_conf(key, astype, default):
 		except (TypeError, ValueError):
 			return default
 	if astype == str:
+		if value == None:
+			return default
 		try:
 			return str(value)
 		except:
