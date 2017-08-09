@@ -75,6 +75,8 @@ def forward(bot, update):
 		)
 
 
-def main(dp):
-	dp.add_handler(conv_handler, group = 2)
-	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.all, forward), group = 2)
+def main(dp, group):
+	for i in [
+		conv_handler,
+		tg_ext.MessageHandler(tg_ext.Filters.all, forward),
+	]: dp.add_handler(i, group)

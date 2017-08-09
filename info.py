@@ -113,11 +113,13 @@ def info_full(bot, update, args):
 	bot.send_message(update.message.from_user.id,
 		str(update.message.reply_to_message)
 	)
-def main(dp):
-	dp.add_handler(tg_ext.CommandHandler('info', info_meta, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('i', info_meta, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('iu', info_user, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('ic', info_chat, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('im', info_message, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('if', info_forward, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('iF', info_full, pass_args = True))
+def main(dp, group):
+	for i in [
+		tg_ext.CommandHandler('info', info_meta, pass_args = True),
+		tg_ext.CommandHandler('i', info_meta, pass_args = True),
+		tg_ext.CommandHandler('iu', info_user, pass_args = True),
+		tg_ext.CommandHandler('ic', info_chat, pass_args = True),
+		tg_ext.CommandHandler('im', info_message, pass_args = True),
+		tg_ext.CommandHandler('if', info_forward, pass_args = True),
+		tg_ext.CommandHandler('iF', info_full, pass_args = True),
+	]: dp.add_handler(i, group = group)

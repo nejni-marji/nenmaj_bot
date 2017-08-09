@@ -414,5 +414,7 @@ def text_parse(bot, update):
 		bot_reverse()
 		bot_motd()
 
-def main(dp):
-	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.text, text_parse))
+def main(dp, group):
+	for i in [
+		tg_ext.MessageHandler(tg_ext.Filters.text, text_parse),
+	]: dp.add_handler(i, group)

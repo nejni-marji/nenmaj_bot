@@ -254,6 +254,8 @@ def inlinequery(bot, update):
 	# send inline query results
 	bot.answer_inline_query(update.inline_query.id, results, cache_time = 0)
 
-def main(dp):
-	dp.add_handler(tg_ext.InlineQueryHandler(inlinequery))
-	dp.add_handler(tg_ext.CommandHandler('subs', subs_ls))
+def main(dp, group):
+	for i in [
+		tg_ext.InlineQueryHandler(inlinequery),
+		tg_ext.CommandHandler('subs', subs_ls),
+	]: dp.add_handler(i, group)

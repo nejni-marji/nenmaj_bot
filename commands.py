@@ -239,25 +239,27 @@ def foss(bot, update):
 		"AgADAwADrKcxGxf4GExRki2M2qyrKI30hjEABLCGgdjm9eXSgEYBAAEC"
 	)
 
-def main(dp):
-	dp.add_handler(tg_ext.CommandHandler('start', start))
-	dp.add_handler(tg_ext.CommandHandler('nenmaj', nenmaj))
-	dp.add_handler(tg_ext.CommandHandler('nm', nenmaj))
-	dp.add_handler(tg_ext.CommandHandler('donate', donate))
-	dp.add_handler(tg_ext.CommandHandler('sudo', sudo, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('btc', btc))
-	dp.add_handler(tg_ext.CommandHandler('time', timezones))
-	dp.add_handler(tg_ext.CommandHandler('calc', calc, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('motd', motd, pass_args = True))
+def main(dp, group):
+	for i in [
+		tg_ext.CommandHandler('start', start),
+		tg_ext.CommandHandler('nenmaj', nenmaj),
+		tg_ext.CommandHandler('nm', nenmaj),
+		tg_ext.CommandHandler('donate', donate),
+		tg_ext.CommandHandler('sudo', sudo, pass_args = True),
+		tg_ext.CommandHandler('btc', btc),
+		tg_ext.CommandHandler('time', timezones),
+		tg_ext.CommandHandler('calc', calc, pass_args = True),
+		tg_ext.CommandHandler('motd', motd, pass_args = True),
 
-	dp.add_handler(tg_ext.CommandHandler('echo', echo, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('echom', echom, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('echon', echon, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('echomn', echomn, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('e', echo, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('em', echom, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('en', echon, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('emn', echomn, pass_args = True))
+		tg_ext.CommandHandler('echo', echo, pass_args = True),
+		tg_ext.CommandHandler('echom', echom, pass_args = True),
+		tg_ext.CommandHandler('echon', echon, pass_args = True),
+		tg_ext.CommandHandler('echomn', echomn, pass_args = True),
+		tg_ext.CommandHandler('e', echo, pass_args = True),
+		tg_ext.CommandHandler('em', echom, pass_args = True),
+		tg_ext.CommandHandler('en', echon, pass_args = True),
+		tg_ext.CommandHandler('emn', echomn, pass_args = True),
 
-	dp.add_handler(tg_ext.CommandHandler('hic', hi_c))
-	dp.add_handler(tg_ext.CommandHandler('foss', foss))
+		tg_ext.CommandHandler('hic', hi_c),
+		tg_ext.CommandHandler('foss', foss),
+	]: dp.add_handler(i, group)

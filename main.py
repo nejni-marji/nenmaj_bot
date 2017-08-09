@@ -27,7 +27,7 @@ dp.add_error_handler(error)
 
 log_time('beginning to import bot modules')
 
-for i in [
+modules = [
 	'info',
 	'settings',
 	'creator',
@@ -40,10 +40,13 @@ for i in [
 	'xkcd',
 	'youtube',
 	'questions',
-]:
-	exec('import %s' % i)
-	exec('%s.main(dp)' % i)
-	log_time('loaded %s.py' % i)
+]
+for i in enumerate(modules):
+	group = i[0] + 1
+	module = i[1]
+	exec('import %s' % module)
+	exec('%s.main(dp, %s)' % (module, group))
+	log_time('loaded %s.py' % module)
 
 log_time('all modules loaded')
 

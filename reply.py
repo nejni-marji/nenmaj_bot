@@ -82,5 +82,7 @@ def reply_check(bot, update):
 		send_notification()
 		send_forward()
 
-def main(dp):
-	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.all, reply_check), group = 1)
+def main(dp, group):
+	for i in [
+		tg_ext.MessageHandler(tg_ext.Filters.all, reply_check),
+	]: dp.add_handler(i, group)

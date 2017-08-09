@@ -60,8 +60,10 @@ def bot_leave(bot, update):
 		return None
 	bot.leave_chat(update.message.chat_id)
 
-def main(dp):
-	dp.add_handler(tg_ext.CommandHandler('reboot', bot_reboot))
-	dp.add_handler(tg_ext.CommandHandler('shutdown', bot_shutdown))
-	dp.add_handler(tg_ext.CommandHandler('usage', bot_usage))
-	dp.add_handler(tg_ext.CommandHandler('leave', bot_leave))
+def main(dp, group):
+	for i in [
+		tg_ext.CommandHandler('reboot', bot_reboot),
+		tg_ext.CommandHandler('shutdown', bot_shutdown),
+		tg_ext.CommandHandler('usage', bot_usage),
+		tg_ext.CommandHandler('leave', bot_leave),
+	]: dp.add_handler(i, group)

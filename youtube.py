@@ -204,9 +204,11 @@ def youtube_debug(bot, update, args):
 	mode = args.pop(0)
 	youtube_meta(bot, update, args, mode, debug = True)
 
-def main(dp):
-	dp.add_handler(tg_ext.CommandHandler('audio', youtube_audio, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('video', youtube_video, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('nightcore', youtube_nightcore, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('daycore', youtube_daycore, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('debug', youtube_debug, pass_args = True))
+def main(dp, group):
+	for i in [
+		tg_ext.CommandHandler('audio', youtube_audio, pass_args = True),
+		tg_ext.CommandHandler('video', youtube_video, pass_args = True),
+		tg_ext.CommandHandler('nightcore', youtube_nightcore, pass_args = True),
+		tg_ext.CommandHandler('daycore', youtube_daycore, pass_args = True),
+		tg_ext.CommandHandler('debug', youtube_debug, pass_args = True),
+	]: dp.add_handler(i, group)

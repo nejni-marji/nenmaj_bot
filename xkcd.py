@@ -131,6 +131,8 @@ def xkcd_search(bot, update, args):
 			reply_to_message_id = update.message.message_id,
 		)
 
-def main(dp):
-	dp.add_handler(tg_ext.CommandHandler('xkcd', xkcd_num, pass_args = True))
-	dp.add_handler(tg_ext.CommandHandler('search', xkcd_search, pass_args = True))
+def main(dp, group):
+	for i in [
+		tg_ext.CommandHandler('xkcd', xkcd_num, pass_args = True),
+		tg_ext.CommandHandler('search', xkcd_search, pass_args = True),
+	]: dp.add_handler(i, group)

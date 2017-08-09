@@ -20,5 +20,7 @@ def status(bot, update):
 	except AttributeError:
 		pass
 
-def main(dp):
-	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.status_update, status))
+def main(dp, group):
+	for i in [
+		tg_ext.MessageHandler(tg_ext.Filters.status_update, status),
+	]: dp.add_handler(i, group)

@@ -37,7 +37,7 @@ def send_question(bot, job):
 		question,
 	)
 
-def main(dp):
+def main(dp, group):
 	for chat_id in [i for i in configs if check_conf(i + '.questions.enabled', bool, False)]:
 		name = 'question' + chat_id
 		dp.chat_data[int(chat_id)][name] = dp.job_queue.run_repeating(
@@ -47,4 +47,6 @@ def main(dp):
 			name = name,
 		)
 
-	dp.add_handler(tg_ext.MessageHandler(tg_ext.Filters.all, queue_question, pass_job_queue = True, pass_chat_data = True), group = 3)
+	for i in [
+		tg_ext.MessageHandler(tg_ext.Filters.all, queue_question, pass_job_queue = True, pass_chat_data = True),
+	]: dp.add_handler(i, group)
