@@ -4,6 +4,7 @@ import importlib
 from os.path import dirname
 from sys import argv
 from time import time
+from traceback import print_exc
 
 import telegram as tg
 import telegram.ext as tg_ext
@@ -81,6 +82,10 @@ def reload_module(bot, update, group, module):
 		del dp.handlers[group]
 		dp.groups.remove(group)
 
+	except KeyError:
+		pass
+
+	try:
 		exec('importlib.reload(%s)' % module)
 		exec('%s.main(dp, %s)' % (module, group))
 
@@ -92,6 +97,8 @@ def reload_module(bot, update, group, module):
 		)
 
 	except:
+		print_exc()
+
 		bot.edit_message_text(
 			chat_id = update.message.chat_id,
 			message_id = reload_message.message_id,
