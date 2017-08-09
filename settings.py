@@ -276,7 +276,6 @@ def registry_search(bot, update, args):
 
 def main(dp, group):
 	for i in [
-		tg_ext.MessageHandler(tg_ext.Filters.all, register),
 		tg_ext.CommandHandler('set', set_parser, pass_args = True),
 		tg_ext.CommandHandler('get', get_parser, pass_args = True),
 		tg_ext.CommandHandler('del', del_parser, pass_args = True),
@@ -285,4 +284,5 @@ def main(dp, group):
 		tg_ext.CommandHandler('g', get_parser, pass_args = True),
 		tg_ext.CommandHandler('d', del_parser, pass_args = True),
 		tg_ext.CommandHandler('r', registry_search, pass_args = True),
+		tg_ext.MessageHandler(tg_ext.Filters.all, register),
 	]: dp.add_handler(i, group)
