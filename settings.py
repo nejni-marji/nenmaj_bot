@@ -150,6 +150,8 @@ def set_parser(bot, update, args):
 	except:
 		return None
 	new_args = pre_parser(bot, update, args, 'set')
+	if not new_args:
+		return None
 	set_conf(new_args['key'], new_args['value'])
 	bot.send_message(*new_args['args'], **new_args['kwargs'])
 
@@ -161,6 +163,8 @@ def get_parser(bot, update, args):
 	except:
 		return None
 	new_args = pre_parser(bot, update, args, 'get')
+	if not new_args:
+		return None
 	get_conf(new_args['key'])
 	bot.send_message(*new_args['args'], **new_args['kwargs'])
 
@@ -172,6 +176,8 @@ def del_parser(bot, update, args):
 	except:
 		return None
 	new_args = pre_parser(bot, update, args, 'del')
+	if not new_args:
+		return None
 	del_conf(new_args['key'])
 	bot.send_message(*new_args['args'], **new_args['kwargs'])
 
