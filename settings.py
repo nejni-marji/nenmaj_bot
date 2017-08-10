@@ -73,7 +73,6 @@ def pre_parser(bot, update, args, mode):
 	if not args.key and args.user:
 		args.key = 'user'
 	elif args.help or not args.key:
-		helptext = '```\n' + parsers['set'].format_help() + '\n```'
 		bot.send_message(
 			update.message.chat_id,
 			'```\n' + parsers[mode].format_help() + '\n```',
