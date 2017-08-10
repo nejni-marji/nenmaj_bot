@@ -97,7 +97,8 @@ def pre_parser(bot, update, args, mode):
 				dotkey = 'user.' + dotkey
 			else:
 				dotkey = 'chat.' + dotkey
-	if not sudo(bot, update, 'quiet'):
+	user = dotkey.startswith('user.') or dotkey == 'user'
+	if not sudo(bot, update, 'quiet') and not user:
 		key = [str(update.message.from_user.id)] + key
 		dotkey = 'user.' + dotkey
 
