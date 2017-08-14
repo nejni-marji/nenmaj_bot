@@ -28,6 +28,10 @@ for i in ['set', 'get', 'del']:
 		action = 'store_true', dest = 'help',
 	)
 	parser.add_argument(
+		'.c', '..chat',
+		action = 'store_true', dest = 'chat',
+	)
+	parser.add_argument(
 		'.u', '..user',
 		action = 'store_true', dest = 'user',
 	)
@@ -68,39 +72,53 @@ reg_parser.add_argument(
 def pre_parser(bot, update, args, mode):
 	if not update.message.from_user.id == myself:
 		args.absolute = False
-	if args.user and args.absolute:
-		return None
-	if not args.key and args.user:
-		args.key = 'user'
-	elif args.help or not args.key:
+	if args.absolute:
+		args.chat = False
+		args.user = False
+
+	no_key = not (args.key or args.chat or args.user)
+	if args.help or no_key:
 		bot.send_message(
 			update.message.chat_id,
 			'```\n' + parsers[mode].format_help() + '\n```',
 			parse_mode = tg.ParseMode.MARKDOWN
 		)
 		return None
+
+	if not args.key:
+		args.key = str()
 	dotkey = args.key
 	key = args.key.split('.')
-	if args.user and not key[0] == 'user':
-		key = ['user'] + key
-		dotkey = 'user.' + dotkey
+
+	if key == [str()]:
+		key = []
+
 	if not args.absolute:
-		subs = {
-			'user': str(update.message.from_user.id),
-			'chat': str(update.message.chat_id),
-		}
-		if key[0] in subs:
-			key[0] = subs[key[0]]
-		else:
+		if args.chat and args.user:
+			dotkey = 'user.chat.' + dotkey
+			key = [str(update.message.chat_id)] + key
+			key = ['chats'] + key
+			key = [str(update.message.from_user.id)] + key
+		elif args.chat:
+			dotkey = 'chat.' + dotkey
+			key = [str(update.message.chat_id)] + key
+		elif args.user:
+			dotkey = 'user.' + dotkey
+			key = [str(update.message.from_user.id)] + key
+
+		if not args.chat and not args.user:
 			key = [str(update.message.chat_id)] + key
 			if update.message.chat_id > 0:
 				dotkey = 'user.' + dotkey
 			else:
 				dotkey = 'chat.' + dotkey
-	user = dotkey.startswith('user.') or dotkey == 'user'
-	if not sudo(bot, update, 'quiet') and not user:
-		key = [str(update.message.from_user.id)] + key
-		dotkey = 'user.' + dotkey
+
+		if dotkey.startswith('chat.') and not sudo(bot, update, 'quiet'):
+			sudo(bot, update, 'test')
+			return None
+
+		if dotkey.endswith('.'):
+			dotkey = dotkey[:-1]
 
 	if 'value' in args and args.value:
 		value = ' '.join(args.value)
