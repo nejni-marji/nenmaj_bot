@@ -5,6 +5,7 @@ from time import sleep
 from urllib.request import urlopen
 from json import loads
 from re import match
+from geopy import geocoders
 from datetime import datetime
 from pytz import timezone
 
@@ -12,6 +13,7 @@ import telegram as tg
 import telegram.ext as tg_ext
 
 from bin.background import background
+from bin.config import set_conf, get_conf, check_conf
 
 myself = int(open(dirname(__file__) + '/private/myself').read())
 
@@ -79,24 +81,69 @@ def btc(bot, update):
 		reply_to_message_id = update.message.message_id,
 	)
 
-def timezones(bot, update):
-	resp = []
-	time_file = open(dirname(__file__) + '/private/time.json')
-	time_dict = loads(time_file.read())
-	time_file.close()
-	if str(update.message.chat_id) in time_dict:
-		for i in time_dict[str(update.message.chat_id)]:
-			time = datetime.now(tz = timezone(i[0]))
-			zone = '<code>{}:</code> {}'.format(
-				time.strftime('%H:%M (%Z)'),
-				i[1]
-			)
-			resp.append(zone)
-		bot.send_message(
-			update.message.chat_id,
-			'\n'.join(resp),
-			parse_mode = tg.ParseMode.HTML
+geocoder = geocoders.GoogleV3()
+def set_timezone(bot, update, args):
+	query = ' '.join(args)
+	place, pos = geocoder.geocode(query)
+	zone = geocoder.timezone(pos).zone
+
+	key = 'reg.%i.' % update.message.from_user.id
+	set_conf(key + 'location', query)
+	set_conf(key + 'timezone', zone)
+
+	bot.send_message(
+		update.message.chat_id,
+		'Set timezone: {}'.format(place)
+	)
+
+def get_timezone(bot, update):
+	if update.message.chat_id > 0:
+		return None
+
+	reg = get_conf('reg')
+
+	def check_user(user_id):
+		if not 'timezone' in reg[user_id]:
+			return False
+
+		status = bot.get_chat_member(
+			update.message.chat_id, user_id
+		).status
+		if not status in ['creator', 'administrator', 'member']:
+			return False
+
+		if not check_conf(
+			'{}.chats.{}.timezone.enabled'.format(
+				user_id, update.message.chat_id
+			), bool, False
+		):
+			return False
+
+		return True
+
+	users = [reg[i] for i in reg if check_user(i)]
+	zones = [i['timezone'] for i in users]
+
+	zones = {
+		int(datetime.now(tz = timezone(i)).strftime('%z')): i
+		for i in zones
+	}
+	offsets = list(zones)
+	offsets.sort()
+	resp = '\n'.join([
+		'{}: {}'.format(
+			datetime.now(tz = timezone(zones[i])).strftime('%H:%M (%Z)'),
+			', '.join([
+				j['first_name'] for j in users
+				if zones[i] == j['timezone']
+			])
 		)
+		for i in offsets
+	])
+	bot.send_message(
+		update.message.chat_id, resp
+	)
+
 
 def calc(bot, update, args):
 	if not sudo(bot, update, 'quiet'):
@@ -247,7 +294,8 @@ def main(dp, group):
 		tg_ext.CommandHandler('donate', donate),
 		tg_ext.CommandHandler('sudo', sudo, pass_args = True),
 		tg_ext.CommandHandler('btc', btc),
-		tg_ext.CommandHandler('time', timezones),
+		tg_ext.CommandHandler('timezone', set_timezone, pass_args = True),
+		tg_ext.CommandHandler('time', get_timezone),
 		tg_ext.CommandHandler('calc', calc, pass_args = True),
 		tg_ext.CommandHandler('motd', motd, pass_args = True),
 
