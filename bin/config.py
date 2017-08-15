@@ -4,7 +4,6 @@ from os.path import dirname
 import bin.database as db
 db_file = dirname(__file__) + '/../private/config.json'
 configs = db.load(db_file)
-#print(configs)
 
 def set_conf(key, value, database = configs):
 	if type(key) == str:
