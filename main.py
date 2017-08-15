@@ -5,9 +5,12 @@ from os.path import dirname
 from sys import argv
 from time import time
 from traceback import print_exc
+from os import system
 
 import telegram as tg
 import telegram.ext as tg_ext
+
+from bin.background import background
 
 myself = int(open(dirname(__file__) + '/private/myself').read())
 
@@ -110,6 +113,15 @@ dp.add_handler(tg_ext.CommandHandler('reload', reload_meta, pass_args = True))
 log_time('loaded reloader')
 
 log_time('all modules loaded')
+
+@background
+def clear():
+	while True:
+		input()
+		system('clear')
+
+system('clear')
+clear()
 
 try:
 	data = str(argv[1])
