@@ -90,6 +90,14 @@ def set_timezone(bot, update, args):
 	key = 'reg.%i.' % update.message.from_user.id
 	set_conf(key + 'location', query)
 	set_conf(key + 'timezone', zone)
+	user_chat = '%i.chats.%i' % (
+		update.message.from_user.id,
+		update.message.chat_id
+	)
+	set_conf(
+		user_chat + '.timezone.enabled',
+		'on'
+	)
 
 	bot.send_message(
 		update.message.chat_id,
