@@ -125,8 +125,7 @@ def pre_parser(bot, update, args, mode):
 	else:
 		value = get_conf(key)
 	if 'give' in args and args.give:
-		bot_args = [update.message.chat_id, value]
-		bot_kwargs = {}
+		text = value
 	else:
 		def clean_value(value):
 			t = type(value)
@@ -140,21 +139,20 @@ def pre_parser(bot, update, args, mode):
 				i: clean_value(value[i])
 				for i in value
 			}
-		bot_args = [
-			update.message.chat_id,
-			'```\n{} {}: {}\n```'.format(
-				mode, dotkey, value
-			)
-		]
+		text = '```\n{} {}: {}\n```'.format(
+			mode, dotkey, value
+		)
 		bot_kwargs = {
-			'parse_mode': tg.ParseMode.MARKDOWN
+			'chat_id': update.message.chat_id,
+			'text': text,
+			'parse_mode': tg.ParseMode.MARKDOWN,
+			'reply_to_message_id': update.message.message_id
 		}
 
 	return {
 		'dotkey': dotkey,
 		'key': key,
 		'value': value,
-		'args': bot_args,
 		'kwargs': bot_kwargs,
 	}
 
@@ -171,7 +169,7 @@ def set_parser(bot, update, args):
 	if not new_args:
 		return None
 	set_conf(new_args['key'], new_args['value'])
-	bot.send_message(*new_args['args'], **new_args['kwargs'])
+	bot.send_message(**new_args['kwargs'])
 
 def get_parser(bot, update, args):
 	try:
@@ -184,7 +182,7 @@ def get_parser(bot, update, args):
 	if not new_args:
 		return None
 	get_conf(new_args['key'])
-	bot.send_message(*new_args['args'], **new_args['kwargs'])
+	bot.send_message(**new_args['kwargs'])
 
 def del_parser(bot, update, args):
 	try:
@@ -197,7 +195,7 @@ def del_parser(bot, update, args):
 	if not new_args:
 		return None
 	del_conf(new_args['key'])
-	bot.send_message(*new_args['args'], **new_args['kwargs'])
+	bot.send_message(**new_args['kwargs'])
 
 def top_parser(bot, update):
 	if not update.message.from_user.id == myself:
