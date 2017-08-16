@@ -197,14 +197,6 @@ def del_parser(bot, update, args):
 	del_conf(new_args['key'])
 	bot.send_message(**new_args['kwargs'])
 
-def top_parser(bot, update):
-	if not update.message.from_user.id == myself:
-		return None
-	bot.send_message(
-		update.message.chat_id,
-		'\n'.join(list(configs))
-	)
-
 def register(bot, update):
 	if not randint(1, 1) == 1:
 		return None
