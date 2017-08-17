@@ -69,133 +69,154 @@ reg_parser.add_argument(
 	nargs = '*',
 )
 
-def pre_parser(bot, update, args, mode):
-	if not update.message.from_user.id == myself:
-		args.absolute = False
-	if args.absolute:
-		args.chat = False
-		args.user = False
-
-	no_key = not (args.key or args.chat or args.user)
-	if args.help or no_key:
-		bot.send_message(
-			update.message.chat_id,
-			'```\n' + parsers[mode].format_help() + '\n```',
-			parse_mode = tg.ParseMode.MARKDOWN
-		)
-		return None
-
-	if not args.key:
-		args.key = str()
-	dotkey = args.key
-	key = args.key.split('.')
-
-	if key == [str()]:
-		key = []
-
-	if not args.absolute:
-		if args.chat and args.user:
-			dotkey = 'user.chat.' + dotkey
-			key = [str(update.message.chat_id)] + key
-			key = ['chats'] + key
-			key = [str(update.message.from_user.id)] + key
-		elif args.chat:
-			dotkey = 'chat.' + dotkey
-			key = [str(update.message.chat_id)] + key
-		elif args.user:
-			dotkey = 'user.' + dotkey
-			key = [str(update.message.from_user.id)] + key
-
-		if not args.chat and not args.user:
-			key = [str(update.message.chat_id)] + key
-			if update.message.chat_id > 0:
-				dotkey = 'user.' + dotkey
-			else:
-				dotkey = 'chat.' + dotkey
-
-		if dotkey.startswith('chat.') and not sudo(bot, update, 'quiet'):
-			sudo(bot, update, 'test')
+class Option():
+	def __init__(self, bot, update, args, mode):
+		if not mode in parsers:
 			return None
 
-		if dotkey.endswith('.'):
-			dotkey = dotkey[:-1]
+		self.get_vars(bot, update, args, mode)
+		self.get_keys(self.args)
+		try:
+			self.key
+			self.dotkey
+		except:
+			return None
+		self.get_value()
+		self.get_conf()
+		self.get_resp()
+		self.send_resp()
 
-	if 'value' in args and args.value:
-		value = ' '.join(args.value)
-	else:
-		value = get_conf(key)
-	if 'give' in args and args.give:
-		text = value
-	else:
+	def send_help(self):
+		self.bot.send_message(
+			self.chat_id,
+			'```\n' + parsers[self.mode].format_help() + '\n```',
+			**self.kwargs
+		)
+
+	def get_vars(self, bot, update, args, mode):
+		self.bot, self.update = bot, update
+		self.chat_id = str(update.message.chat_id)
+		self.user_id = str(update.message.from_user.id)
+		self.mesg_id = str(update.message.message_id)
+
+		self.args = parsers[mode].parse_args(args)
+		self.mode = mode
+
+		self.kwargs = {
+			'parse_mode': tg.ParseMode.MARKDOWN,
+			'reply_to_message_id': self.mesg_id
+		}
+
+	def get_keys(self, args):
+		if not self.user_id == str(myself):
+			args.absolute = False
+
+		if args.absolute:
+			args.chat = False
+			args.user = False
+
+		no_key = not (args.key or args.chat or args.user)
+		if args.help or no_key:
+			self.send_help()
+			return None
+
+		if not args.key:
+			args.key = str()
+		dotkey = args.key
+		key = args.key.split('.')
+
+		if key == [str()]:
+			key = []
+
+		if not args.absolute:
+			if args.chat and args.user:
+				dotkey = 'user.chat.' + dotkey
+				key = [self.chat_id] + key
+				key = ['chats'] + key
+				key = [self.user_id] + key
+			elif args.chat:
+				dotkey = 'chat.' + dotkey
+				key = [self.chat_id] + key
+			elif args.user:
+				dotkey = 'user.' + dotkey
+				key = [self.user_id] + key
+
+			if not args.chat and not args.user:
+				key = [self.chat_id] + key
+				if int(self.chat_id) > 0:
+					dotkey = 'user.' + dotkey
+				else:
+					dotkey = 'chat.' + dotkey
+
+			if dotkey.startswith('chat.') and not sudo(self.bot, self.update, 'quiet'):
+				sudo(self.bot, self.update, 'test')
+				return None
+
+			if dotkey.endswith('.'):
+				dotkey = dotkey[:-1]
+
+		self.key, self.dotkey = key, dotkey
+
+	def get_value(self):
+		if self.mode == 'set':
+			self.value = ' '.join(self.args.value)
+			return None
+
+		value = get_conf(self.key)
+
 		def clean_value(value):
-			t = type(value)
-			if t == str:
+			if type(value) == str:
 				return value
-			elif t == dict:
+			elif type(value) == dict:
 				return {}
 			return type(value).__name__
+
 		if type(value) == dict:
 			value = {
 				i: clean_value(value[i])
 				for i in value
 			}
-		text = '```\n{} {}: {}\n```'.format(
-			mode, dotkey, value
-		)
-		bot_kwargs = {
-			'chat_id': update.message.chat_id,
-			'text': text,
-			'parse_mode': tg.ParseMode.MARKDOWN,
-			'reply_to_message_id': update.message.message_id
-		}
 
-	return {
-		'dotkey': dotkey,
-		'key': key,
-		'value': value,
-		'kwargs': bot_kwargs,
-	}
+		self.value = value
+
+	def get_conf(self):
+		self.conf = {
+			'set': self.set_key,
+			'get': self.get_key,
+			'del': self.del_key,
+		}[self.mode]()
+
+	def get_resp(self):
+		self.resp = '{} {}: {}'.format(
+			self.mode,
+			self.dotkey,
+			self.value
+		)
+
+	def send_resp(self):
+		self.bot.send_message(
+			self.chat_id,
+			'```\n{}\n```'.format(self.resp),
+			**self.kwargs
+		)
+
+	def set_key(self):
+		return set_conf(self.key, self.value)
+
+	def get_key(self):
+		return get_conf(self.key)
+
+	def del_key(self):
+		return del_conf(self.key)
 
 def set_parser(bot, update, args):
-	try:
-		if type(args) == str:
-			args = args.split()
-		args = parsers['set'].parse_args(args)
-		if not args.value:
-			args.help = True
-	except:
-		return None
-	new_args = pre_parser(bot, update, args, 'set')
-	if not new_args:
-		return None
-	set_conf(new_args['key'], new_args['value'])
-	bot.send_message(**new_args['kwargs'])
+	Option(bot, update, args, 'set')
 
 def get_parser(bot, update, args):
-	try:
-		if type(args) == str:
-			args = args.split()
-		args = parsers['get'].parse_args(args)
-	except:
-		return None
-	new_args = pre_parser(bot, update, args, 'get')
-	if not new_args:
-		return None
-	get_conf(new_args['key'])
-	bot.send_message(**new_args['kwargs'])
+	Option(bot, update, args, 'get')
 
 def del_parser(bot, update, args):
-	try:
-		if type(args) == str:
-			args = args.split()
-		args = parsers['get'].parse_args(args)
-	except:
-		return None
-	new_args = pre_parser(bot, update, args, 'del')
-	if not new_args:
-		return None
-	del_conf(new_args['key'])
-	bot.send_message(**new_args['kwargs'])
+	Option(bot, update, args, 'del')
 
 def register(bot, update):
 	if not randint(1, 1) == 1:
