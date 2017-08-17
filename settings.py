@@ -187,11 +187,14 @@ class Option():
 		}[self.mode]()
 
 	def get_resp(self):
-		self.resp = '{} {}: {}'.format(
-			self.mode,
-			self.dotkey,
-			self.value
-		)
+		if self.mode == 'set' and self.conf:
+			self.resp = self.conf
+		else:
+			self.resp = '{} {}: {}'.format(
+				self.mode,
+				self.dotkey,
+				self.value
+			)
 
 	def send_resp(self):
 		self.bot.send_message(

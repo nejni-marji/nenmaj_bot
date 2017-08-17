@@ -11,8 +11,12 @@ def set_conf(key, value, database = configs):
 
 	if key[0] in database:
 
+		if not type(database) == dict:
+			return 'Cannot assign data inside string. Delete the string first.'
 		if len(key) > 1:
 			return set_conf(key[1:], value, database[key[0]])
+		if not type(database[key[0]]) == type(value):
+			return 'Cannot assign string over data. Please delete the data first.'
 		database[key[0]] = value
 		db.dump(db_file, configs)
 		return None
@@ -27,6 +31,8 @@ def get_conf(key, database = configs):
 	if type(key) == str:
 		key = key.split('.')
 	if key[0] in database:
+		if not type(database) == dict:
+			return None
 		if len(key) > 1:
 			return get_conf(key[1:], database[key[0]])
 		return database[key[0]]
@@ -38,6 +44,8 @@ def del_conf(key, database = configs):
 
 	if key[0] in database:
 
+		if not type(database) == dict:
+			return None
 		if len(key) > 1:
 			return del_conf(key[1:], database[key[0]])
 		database.pop(key[0])
