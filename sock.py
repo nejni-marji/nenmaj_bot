@@ -67,7 +67,8 @@ conv_handler = tg_ext.ConversationHandler(
 )
 
 def forward(bot, update):
-	if update.message.chat_id == target:
+	chat_id = update.message.chat_id
+	if chat_id == target and chat_id < 0:
 		bot.forward_message(
 			chat_id = source,
 			from_chat_id = target,
