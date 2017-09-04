@@ -189,17 +189,21 @@ class Option():
 	def get_resp(self):
 		if self.mode == 'set' and self.conf:
 			self.resp = self.conf
+		if self.mode == 'get' and self.args.give:
+			self.resp = self.value
+			del self.kwargs['parse_mode']
 		else:
 			self.resp = '{} {}: {}'.format(
 				self.mode,
 				self.dotkey,
 				self.value
 			)
+			self.resp = '```\n{}\n```'.format(self.resp)
 
 	def send_resp(self):
 		self.bot.send_message(
 			self.chat_id,
-			'```\n{}\n```'.format(self.resp),
+			self.resp,
 			**self.kwargs
 		)
 
