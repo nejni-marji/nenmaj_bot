@@ -17,8 +17,8 @@ def info_meta(bot, update, args):
 		'm':       info_message,
 		'forward': info_forward,
 		'f':       info_forward,
-		'full' :   info_full,
-		'F':       info_full,
+		'json' :   info_json,
+		'j':       info_json,
 	}
 	try:
 		commands[args[0]](bot, update, args)
@@ -105,7 +105,7 @@ def info_forward(bot, update, args):
 		update.message.chat.id, resp,
 		reply_to_message_id = update.message.message_id
 	)
-def info_full(bot, update, args):
+def info_json(bot, update, args):
 	message = update.message.reply_to_message
 	resp = 'Mi rekte mesaĝu al vi la detalojn de la mesaĝo.'
 	bot.send_message(
@@ -123,5 +123,5 @@ def main(dp, group):
 		tg_ext.CommandHandler('ic', info_chat, pass_args = True),
 		tg_ext.CommandHandler('im', info_message, pass_args = True),
 		tg_ext.CommandHandler('if', info_forward, pass_args = True),
-		tg_ext.CommandHandler('iF', info_full, pass_args = True),
+		tg_ext.CommandHandler('ij', info_json, pass_args = True),
 	]: dp.add_handler(i, group = group)
