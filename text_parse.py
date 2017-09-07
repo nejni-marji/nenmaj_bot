@@ -253,6 +253,7 @@ def text_parse(bot, update):
 			bot_resp(
 				"^technically",
 				"https://www.xkcd.com/1475/",
+				chance = 1,
 				words = False,
 			)
 			bot_resp(
