@@ -14,4 +14,4 @@ resp.append('*' * (num + 6))
 print('\n'.join(resp))
 
 data = str(argv[1])
-execl(dirname(__file__) + '/exec.sh', '--', data)
+execl(dirname(__file__) + '/exec.py', '--', data)

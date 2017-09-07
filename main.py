@@ -114,15 +114,6 @@ log_time('loaded reloader')
 
 log_time('all modules loaded')
 
-@background
-def clear():
-	while True:
-		input()
-		system('clear')
-
-system('clear')
-clear()
-
 try:
 	data = str(argv[1])
 	updater.bot.send_message(
