@@ -23,7 +23,9 @@ def info_meta(bot, update, args):
 	try:
 		commands[args[0]](bot, update, args)
 	except:
-		resp = 'Uzado: `/info [{}]`'.format('|'.join(i for i in commands))
+		usage = [i for i in commands]
+		usage.sort()
+		resp = 'Uzado: `/info [{}]`'.format('|'.join(usage))
 		bot.send_message(update.message.chat_id,
 			resp,
 			parse_mode = tg.ParseMode.MARKDOWN,
