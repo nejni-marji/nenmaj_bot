@@ -19,6 +19,7 @@ subs_dict = {
 	'xxLenny': '( ͡° ͜ʖ ͡°)',
 	'xxIB': '‽',
 	'xxCMD ': '/\xad',
+	'xxHas': 'Has anyone really been far even as decided to use even go want to do look more like?',
 }
 subs_re = {}
 for sub in subs_dict:
