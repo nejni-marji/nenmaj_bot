@@ -63,7 +63,7 @@ class Comic():
 			for i in range(dled_latest + 1, true_latest):
 				self.comic_db.append(self.get_json_unsafe(i))
 			self.comic_db.append(self.comic_db[0])
-		db.dump('private/comic.json', self.comic_db)
+		db.dump(dirname(__file__) + '/private/comic.json', self.comic_db)
 	def num_query(self, num = 'latest'):
 		if num in ['latest', 'l']:
 			num = 0
